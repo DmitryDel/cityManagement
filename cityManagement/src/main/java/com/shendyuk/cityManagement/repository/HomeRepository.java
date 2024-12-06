@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface HomeRepository extends JpaRepository<Home, Long> {
     List<Home> id(Long id);
+
+    Home findHome(String street, int number);
 }
