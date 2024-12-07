@@ -1,10 +1,9 @@
 package com.shendyuk.cityManagement.service;
 
+import com.shendyuk.cityManagement.exception.EntityNotFoundException;
 import com.shendyuk.cityManagement.model.Home;
 import com.shendyuk.cityManagement.repository.HomeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +26,24 @@ public class HomeService {
     }
 
     public void deleteById(Long id) {
-        homeRepository.deleteById(id);
+        if(homeRepository.existsById(id)) {
+            homeRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Дом по указанному ID: " + id + " не найден.");
+        }
     }
 
+    /**
+     * Finds a Home by its street and number.
+     *
+     * @param street the street of the home
+     * @param number the number of the home
+     * @return the Home instance if found, or null if not found
+     * @throws IllegalArgumentException if the street is null or empty
+     */
     public Home findHome(String street, int number) {
-        return homeRepository.findHome(street, number);
+        if (street == null || street.isEmpty()) throw new IllegalArgumentException("Название улицы не может быть пустым.");
+
+        return homeRepository.findByStreetAndNumber(street, number);
     }
 }

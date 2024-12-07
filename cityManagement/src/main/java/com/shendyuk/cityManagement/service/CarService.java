@@ -18,7 +18,7 @@ public class CarService {
     }
 
     public Car findById(Long id) {
-        return carRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Машина по указанному %d не найдена.", id)));
+        return carRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(String.format("Машина по указанному ID: %d не найдена.", id)));
     }
 
     public Car save(Car car) {
