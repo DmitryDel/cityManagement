@@ -3,11 +3,12 @@ package com.shendyuk.cityManagement.controller;
 import com.shendyuk.cityManagement.dto.HomeCreateRequestDTO;
 import com.shendyuk.cityManagement.dto.HomeResponseDTO;
 import com.shendyuk.cityManagement.exception.EntityNotFoundException;
-import com.shendyuk.cityManagement.mapper.CarMapper;
 import com.shendyuk.cityManagement.mapper.HomeMapper;
 import com.shendyuk.cityManagement.model.Home;
 import com.shendyuk.cityManagement.service.HomeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,16 +34,22 @@ public class HomeController {
     }
 
     @GetMapping("/homeaddress")
-    public HomeResponseDTO findHomeByAddress(@RequestBody HomeCreateRequestDTO homeCreateRequestDTO) {
-        Home home = homeService.findHome(homeCreateRequestDTO.getStreet(), homeCreateRequestDTO.getNumber());
-        return homeMapper.mapToDTO(home);
+    public ResponseEntity<?> findHomeByAddress(@RequestBody HomeCreateRequestDTO homeCreateRequestDTO) {
+        try {
+            Home home = homeService.findHome(homeCreateRequestDTO.getStreet(), homeCreateRequestDTO.getNumber());
+            return new ResponseEntity<>(homeMapper.mapToDTO(home), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+//        Home home = homeService.findHome(homeCreateRequestDTO.getStreet(), homeCreateRequestDTO.getNumber());
+//        return new ResponseEntity<>(homeMapper.mapToDTO(home), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public HomeResponseDTO createNewBuilding(@RequestBody HomeCreateRequestDTO homeCreateRequestDTO) {
-        Home home = homeMapper.mapToHome(homeCreateRequestDTO);
-        Home savedHome = homeService.save(home);
-        return homeMapper.mapToDTO(savedHome);
+    public ResponseEntity<HomeResponseDTO> createNewBuilding(@Valid @RequestBody HomeCreateRequestDTO homeCreateRequestDTO) {
+            Home home = homeMapper.mapToHome(homeCreateRequestDTO);
+            Home savedHome = homeService.save(home);
+            return new ResponseEntity<>(homeMapper.mapToDTO(savedHome), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -51,7 +58,7 @@ public class HomeController {
             homeService.deleteById(id);
             return ResponseEntity.ok("Дом по указанному ID: " + id + " удален.");
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.ok(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

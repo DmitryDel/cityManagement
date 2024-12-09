@@ -19,7 +19,8 @@ public class PersonService {
     }
 
     public Person findById(Long id) {
-        return personRepository.findById(id).orElseThrow();
+        return personRepository.findById(id).orElseThrow(() -> new com.shendyuk.cityManagement.exception.EntityNotFoundException("Человек" +
+                "по указанномуID: " + id + " не найден."));
     }
 
     public Person save(Person person) {

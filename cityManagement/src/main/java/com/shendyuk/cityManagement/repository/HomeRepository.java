@@ -9,4 +9,6 @@ public interface HomeRepository extends JpaRepository<Home, Long> {
     List<Home> id(Long id);
 
     Home findByStreetAndNumber(String street, int number);
+
+    boolean existsByStreetAndNumber(String street, int number);
 }

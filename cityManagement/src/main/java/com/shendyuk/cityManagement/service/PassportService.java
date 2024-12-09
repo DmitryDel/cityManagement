@@ -1,14 +1,12 @@
 package com.shendyuk.cityManagement.service;
 
+import com.shendyuk.cityManagement.exception.EntityNotFoundException;
 import com.shendyuk.cityManagement.model.Passport;
 import com.shendyuk.cityManagement.repository.PassportRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -33,8 +31,8 @@ public class PassportService {
         return passportRepository.findAll();
     }
 
-    public Optional<Passport> findById(Long id) {
-        return passportRepository.findById(id);
+    public Passport findById(Long id) {
+        return passportRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Паспорт по указанному ID: " + id + " не найден."));
     }
 
     public Passport save(Passport passport) {
