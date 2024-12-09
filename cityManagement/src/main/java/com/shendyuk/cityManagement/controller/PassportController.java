@@ -24,6 +24,6 @@ public class PassportController {
 
     @GetMapping("/{id}")
     public Passport findPassportById(@PathVariable Long id) {
-        return passportService.findById(id).orElse(null);
+        return passportService.findById(id);
     }
 }

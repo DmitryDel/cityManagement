@@ -1,6 +1,9 @@
 package com.shendyuk.cityManagement.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -13,7 +16,11 @@ public class Home {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "The field 'street' must not be blank.") // текст не выводится пользователю на экран
     private String street;
+
+    @NotNull(message = "The field 'number' must not be empty.") // текст не выводится пользователю на экран
+    @Min(value = 1, message = "The number of home must be greater than or equal '1'.") // текст не выводится пользователю на экран
     private int number;
 
     @ManyToMany(cascade = CascadeType.ALL)
