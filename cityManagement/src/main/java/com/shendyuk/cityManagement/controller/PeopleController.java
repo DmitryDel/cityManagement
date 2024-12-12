@@ -4,7 +4,6 @@ import com.shendyuk.cityManagement.dto.PersonCreateRequestDTO;
 import com.shendyuk.cityManagement.dto.PersonResponseDTO;
 import com.shendyuk.cityManagement.mapper.PersonMapper;
 import com.shendyuk.cityManagement.model.Person;
-import com.shendyuk.cityManagement.repository.PersonRepository;
 import com.shendyuk.cityManagement.service.PersonService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
