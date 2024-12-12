@@ -18,10 +18,6 @@ public class Person {
     }
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({
-            @JoinColumn(name = "passport_id", referencedColumnName = "id"),
-            @JoinColumn(name = "passport_series", referencedColumnName = "series")
-    })
     private Passport passport;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
