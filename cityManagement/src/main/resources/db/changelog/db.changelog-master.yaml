@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changeset/createTable.sql
+  - include:
+      file: db/changelog/changeset/AddNewColumnToPerson.sql

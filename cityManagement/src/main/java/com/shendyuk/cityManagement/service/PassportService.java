@@ -14,17 +14,16 @@ import java.util.Random;
 public class PassportService {
     private final PassportRepository passportRepository;
 
-//    public Passport createNewPassport() {
-//        String series = generatePassportSeries();
-//        LocalDate issueDate = LocalDate.now();
-//        return new Passport(series, issueDate);
-//    }
-//    public Passport() {
-//    }
+    public Passport createNewPassport() {
+        Passport passport = new Passport();
+        passport.setSeries(generatePassportSeries());
+        passport.setIssueData(LocalDate.now());
+        return passport;
+    }
 
     public static String generatePassportSeries() {
         Random random = new Random();
-        return String.format("%04d", random.nextInt(10000));
+        return String.format("%06d", random.nextInt(1000000));
     }
 
     public List<Passport> findAll() {
