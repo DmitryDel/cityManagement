@@ -1,5 +1,6 @@
 package com.shendyuk.cityManagement.service;
 
+import com.shendyuk.cityManagement.model.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,6 +15,6 @@ public class LotteryService {
     @Scheduled(fixedDelay = 3000)
     public void startLottery() {
         log.info("Lottery started.");
-        personService.randomPerson();
+        Person person = personService.randomPerson();
     }
 }
