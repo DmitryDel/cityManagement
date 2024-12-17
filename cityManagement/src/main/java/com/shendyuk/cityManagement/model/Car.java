@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "car")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +13,5 @@ public class Car {
     private String manufactureYear;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
     private Person owner;
 }

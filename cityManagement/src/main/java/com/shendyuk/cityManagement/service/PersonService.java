@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -21,11 +22,11 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    //TODO реализовать рандомное получени Person
     @RobinHood
     public Person randomPerson() {
-        List<Person> persons = findAll();
-        return persons.get(0);
+        List<Person> personsList = findAll();
+        int randomPerson = new Random().nextInt(personsList.size());
+        return personsList.get(randomPerson);
     }
 
     public Person findById(Long id) {
@@ -47,7 +48,6 @@ public class PersonService {
 
     public void deleteByName(String name) {
         Person person = personRepository.findByName(name);
-
         if(person != null) personRepository.delete(person);
         else throw new EntityNotFoundException("User with name " + name + " not found.");
     }
