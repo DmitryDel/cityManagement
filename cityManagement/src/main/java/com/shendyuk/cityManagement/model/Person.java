@@ -3,25 +3,19 @@ package com.shendyuk.cityManagement.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-@Entity // JPA
+@Entity
 @Data
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private BigDecimal balance;
 
-    public Person() {
-        passport = new Passport();
-    }
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumns({
-            @JoinColumn(name = "passport_id", referencedColumnName = "id"),
-            @JoinColumn(name = "passport_series", referencedColumnName = "series")
-    })
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private Passport passport;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
