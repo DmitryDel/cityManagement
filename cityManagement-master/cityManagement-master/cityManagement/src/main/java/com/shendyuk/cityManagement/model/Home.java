@@ -21,10 +21,5 @@ public class Home {
     private int number;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "person_home",
-            joinColumns = @JoinColumn(name = "home_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "person_id", referencedColumnName = "id")
-    )
     private Set<Person> persons = new HashSet<>();
 }

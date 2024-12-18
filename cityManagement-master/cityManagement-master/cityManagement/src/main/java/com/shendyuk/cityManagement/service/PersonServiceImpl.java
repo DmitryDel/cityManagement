@@ -16,7 +16,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class PersonServiceImpl implements PersonService {
     private PersonRepository personRepository;
-    private PassportService passportService;
+    private PassportServiceImpl passportServiceImpl;
 
     public List<Person> findAll() {
         return personRepository.findAll();
@@ -37,9 +37,9 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public Person save(Person person) {
         personRepository.save(person);
-        Passport passport = passportService.createNewPassport();
+        Passport passport = passportServiceImpl.createNewPassport();
         passport.setPerson(person);
-        passportService.save(passport);
+        passportServiceImpl.save(passport);
         return person;
     }
 

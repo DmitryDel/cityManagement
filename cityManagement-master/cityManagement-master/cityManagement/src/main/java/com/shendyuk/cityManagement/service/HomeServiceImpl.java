@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class HomeService {
+public class HomeServiceImpl implements HomeService {
     private final HomeRepository homeRepository;
 
     /**

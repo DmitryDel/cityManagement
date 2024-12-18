@@ -12,7 +12,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class PassportService {
+public class PassportServiceImpl implements PassportService {
     private final PassportRepository passportRepository;
 
     public Passport createNewPassport() {
@@ -22,7 +22,7 @@ public class PassportService {
         return passport;
     }
 
-    public static String generatePassportSeries() {
+    public String generatePassportSeries() {
         Random random = new Random();
         return String.format("%06d", random.nextInt(1000000));
     }

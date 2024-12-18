@@ -1,10 +1,6 @@
 package com.shendyuk.cityManagement.service;
 
-import com.shendyuk.cityManagement.aspect.RobinHood;
-import com.shendyuk.cityManagement.model.Passport;
 import com.shendyuk.cityManagement.model.Person;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.shendyuk.cityManagement.service;
 
 import com.shendyuk.cityManagement.aspect.RobinHood;
 import com.shendyuk.cityManagement.model.Person;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
