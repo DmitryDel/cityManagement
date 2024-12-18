@@ -5,8 +5,10 @@ import com.shendyuk.cityManagement.dto.PersonResponseDTO;
 import com.shendyuk.cityManagement.mapper.PersonMapper;
 import com.shendyuk.cityManagement.model.Person;
 import com.shendyuk.cityManagement.service.PersonService;
+import com.shendyuk.cityManagement.service.PersonServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/people")
-@AllArgsConstructor
 public class PeopleController {
     private PersonService personService;
     private PersonMapper personMapper;
+
+    public PeopleController(@Qualifier("PersonServiceImpl") PersonService personService, PersonMapper personMapper) {
+        this.personService = personService;
+        this.personMapper = personMapper;
+    }
 
     @GetMapping("/all")
     public List<PersonResponseDTO> findAllPeople() {

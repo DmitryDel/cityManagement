@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class LotteryService {
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
 
     @Scheduled(fixedDelay = 3000)
     public void startLottery() {

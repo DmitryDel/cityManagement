@@ -3,53 +3,21 @@ package com.shendyuk.cityManagement.service;
 import com.shendyuk.cityManagement.aspect.RobinHood;
 import com.shendyuk.cityManagement.model.Passport;
 import com.shendyuk.cityManagement.model.Person;
-import com.shendyuk.cityManagement.repository.PersonRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Random;
 
-@Service
-@AllArgsConstructor
-public class PersonService {
-    private PersonRepository personRepository;
-    private PassportService passportService;
+public interface PersonService {
+    List<Person> findAll();
 
-    public List<Person> findAll() {
-        return personRepository.findAll();
-    }
+    Person randomPerson();
 
-    @RobinHood
-    public Person randomPerson() {
-        List<Person> personsList = findAll();
-        int randomPerson = new Random().nextInt(personsList.size());
-        return personsList.get(randomPerson);
-    }
+    Person findById(Long id);
 
-    public Person findById(Long id) {
-        return personRepository.findById(id).orElseThrow(() -> new com.shendyuk.cityManagement.exception.EntityNotFoundException("Человек" +
-                "по указанномуID: " + id + " не найден."));
-    }
+    Person save(Person person);
 
-    @Transactional
-    public Person save(Person person) {
-        personRepository.save(person);
-        Passport passport = passportService.createNewPassport();
-        passport.setPerson(person);
-        passportService.save(passport);
-        return person;
-    }
+    void deleteById(Long id);
 
-    public void deleteById(Long id) {
-        personRepository.deleteById(id);
-    }
-
-    public void deleteByName(String name) {
-        Person person = personRepository.findByName(name);
-        if(person != null) personRepository.delete(person);
-        else throw new EntityNotFoundException("User with name " + name + " not found.");
-    }
+    void deleteByName(String name);
 }
